@@ -1,0 +1,22 @@
+_BASE_: "Base-Keypoint-RCNN-FPN.yaml"
+MODEL:
+  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  RESNETS:
+    DEPTH: 50
+    NORM: "SyncBN"
+  FPN:
+    NORM: "SyncBN"
+  ROI_HEADS:
+    NAME: CascadeROIHeads
+  ROI_BOX_HEAD:
+    NAME: "FastRCNNConvFCHead"
+    NUM_CONV: 4
+    NUM_FC: 1
+    NORM: "SyncBN"
+    CLS_AGNOSTIC_BBOX_REG: True
+SOLVER:
+  STEPS: (210000, 250000)
+  MAX_ITER: 270000
+TEST:
+  PRECISE_BN:
+    ENABLED: True

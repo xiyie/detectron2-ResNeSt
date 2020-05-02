@@ -1,0 +1,28 @@
+_BASE_: "Base-Keypoint-RCNN-FPN.yaml"
+MODEL:
+  WEIGHTS: "https://hangzh.s3-us-west-1.amazonaws.com/encoding/models/resnest50_detectron-255b5649.pth"
+  RESNETS:
+    DEPTH: 50
+    STRIDE_IN_1X1: False
+    RADIX: 2
+    NORM: "SyncBN"
+  FPN:
+    NORM: "SyncBN"
+  ROI_HEADS:
+    NAME: CascadeROIHeads
+  ROI_BOX_HEAD:
+    NAME: "FastRCNNConvFCHead"
+    NUM_CONV: 4
+    NUM_FC: 1
+    NORM: "SyncBN"
+    CLS_AGNOSTIC_BBOX_REG: True
+  PIXEL_MEAN: [123.68, 116.779, 103.939]
+  PIXEL_STD: [58.393, 57.12, 57.375]
+SOLVER:
+  STEPS: (210000, 250000)
+  MAX_ITER: 270000
+INPUT:
+  FORMAT: "RGB"
+TEST:
+  PRECISE_BN:
+    ENABLED: True
