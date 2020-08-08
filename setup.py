@@ -74,7 +74,7 @@ def get_extensions():
                 #'-gencode', 'arch=compute_75,code=sm_75',
                 #'-gencode', 'arch=compute_75,code=compute_75',
                 ]
-        extra_compile_flags['nvcc'] += gencodes
+        extra_compile_args['nvcc'] += gencodes
 
         # It's better if pytorch can do this by default ..
         CC = os.environ.get("CC", None)
