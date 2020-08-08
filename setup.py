@@ -66,6 +66,16 @@ def get_extensions():
             "-D__CUDA_NO_HALF2_OPERATORS__",
         ]
 
+        gencodes = [
+                '-gencode', 'arch=compute_52,code=sm_52',
+                '-gencode', 'arch=compute_60,code=sm_60',
+                '-gencode', 'arch=compute_61,code=sm_61',
+                '-gencode', 'arch=compute_70,code=sm_70',
+                #'-gencode', 'arch=compute_75,code=sm_75',
+                #'-gencode', 'arch=compute_75,code=compute_75',
+                ]
+        extra_compile_flags['nvcc'] += gencodes
+
         # It's better if pytorch can do this by default ..
         CC = os.environ.get("CC", None)
         if CC is not None:
